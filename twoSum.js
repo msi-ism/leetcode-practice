@@ -75,19 +75,23 @@ testArr7 = [1, 3, 4, 2]
 
 
 const twoSum = (nums, target) => {
-    for (let i = 0; i <= nums.length - 1; i++) {
+    let answer = []
+    for (let i = 0; i < nums.length; i++) {
         let anchor = nums[i]
-        for (let j = 0; j < nums.length; j++) {
+        for (let j = 1; j < nums.length; j++) {
             let check = nums[j]
-            if (nums.indexOf(anchor) != nums.indexOf(check)) {
+            let difference = nums.indexOf(check) - nums.indexOf(anchor)
+            console.log(`J${j} - I${i} = ${difference}`)
                 console.log(anchor, '+', check, '=', anchor + check)
-                if (anchor + check == target && nums.indexOf(anchor) != nums.indexOf(check)) {
+                if (anchor + check == target) {
                     console.log('target matched')
-                    if (anchor == check) {
-                        console.log('target matched, equal, different indexes')
-                        return [nums.indexOf(nums[i]), nums.indexOf(nums[j], nums.indexOf(anchor))]
-                    } else if (anchor == check && nums.indexOf(anchor) == nums.indexOf(check)) {
+                    if (anchor == check && nums.indexOf(anchor) == nums.indexOf(check)) {
                         console.log('target matched, equal, same indexes')
+                        nums.forEach((num, idx) => num == anchor ? answer.push(idx) : null)
+                        return answer
+                    } else if (anchor == check && nums.indexOf(anchor) != nums.indexOf(check)) {
+                        console.log('target matched, equal, different indexes')
+                        console.log(difference)
                         return [nums.indexOf(anchor), nums.indexOf(check)]
                     } else if (anchor != check && nums.indexOf(anchor) != nums.indexOf(check)) {
                         console.log('target matched and unequal')
@@ -96,12 +100,11 @@ const twoSum = (nums, target) => {
                         console.log('No Match')
                     }
                 }
-                console.log('indexes')
+                console.log('No match yet')
                 continue
             }
-        }
     }
 };
 
 
-console.log(twoSum(testArr5, 10))
+console.log(twoSum(testArr7, 6))
